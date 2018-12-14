@@ -11,14 +11,14 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyTitle("FotoTeR")> 
 <Assembly: AssemblyDescription("Trasferimento e rinomina di foto")> 
 <Assembly: AssemblyCompany("[MAIONE MIKY]")> 
-<Assembly: AssemblyProduct("FotoTeR")> 
-<Assembly: AssemblyCopyright("Copyright © [MAIONE MIKY] 2011")> 
+<Assembly: AssemblyProduct("FotoTeR")>
+<Assembly: AssemblyCopyright("Copyright © [MAIONE MIKY] 2018")>
 <Assembly: AssemblyTrademark("[MAIONE MIKY]")> 
 
 <Assembly: ComVisible(False)>
 
 'The following GUID is for the ID of the typelib if this project is exposed to COM
-<Assembly: Guid("b48703a3-87b1-46b1-8571-559028be3d42")> 
+<Assembly: Guid("b48703a3-87b1-46b1-8571-559028be3d42")>
 
 ' Version information for an assembly consists of the following four values:
 '
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("1.11.02.04")> 
-<Assembly: AssemblyFileVersion("1.11.02.04")> 
+<Assembly: AssemblyVersion("20.18.12.14")>
+<Assembly: AssemblyFileVersion("20.18.12.14")>
