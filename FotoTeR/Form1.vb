@@ -225,7 +225,7 @@ Public Class Form1
     Public Function DateToStringWithUnderSpace(ByVal dd As Date) As String
         Dim d = dd.Day
         Dim m = dd.Month
-        Dim y = Microsoft.VisualBasic.Right(dd.Year, 2)
+        Dim y = dd.Year
 
         If dd.Day < 10 Then d = "0" & d
         If dd.Month < 10 Then m = "0" & m
@@ -235,10 +235,10 @@ Public Class Form1
         Return s
     End Function
 
-    Private Sub Form1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+    Private Sub Form1_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
         Dim o = Opzioni
 
-        Me.eRename.Text = "_" & DateToStringWithUnderSpace(Now.AddDays(-1))
+        Me.eRename.Text = DateToStringWithUnderSpace(Now) & "_"
         Me.eRename.SelectionStart = 0
         Me.eRename.SelectionLength = 0
 
