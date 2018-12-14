@@ -1,5 +1,5 @@
 # FotoTeR
-<img src="http://www.maionemiky.it/images/FotoTeR.png" alt="logo" /> An open-source software for coping photograps from the camera to the computer.
+<img src="http://www.maionemiky.it/images/FotoTeR.png" alt="logo" /> An open-source software for coping photographs from the camera to the computer.
 
 
 ## Minimum system requirements
