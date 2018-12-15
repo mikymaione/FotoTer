@@ -17,8 +17,8 @@ Public Class fBrowser
     End Sub
 
     Private Sub bOK_Click(sender As Object, e As EventArgs) Handles bOK.Click
-        Dim n = TreeViewFolderBrowser1.SelectedNode
-        Path = n.FullPath
+        Dim n As Raccoom.Windows.Forms.TreeNodePath = TreeViewFolderBrowser1.SelectedNode
+        Path = n.Path
     End Sub
 
 End Class

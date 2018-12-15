@@ -32,7 +32,7 @@ Namespace My
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global.FotoTeR.Form1
+            Me.MainForm = Global.FotoTeR.fMain
         End Sub
     End Class
 End Namespace

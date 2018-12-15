@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class Form1
+Partial Class fMain
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -23,7 +23,7 @@ Partial Class Form1
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(fMain))
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.eFrom = New System.Windows.Forms.TextBox()
@@ -83,6 +83,7 @@ Partial Class Form1
         Me.eRename.Name = "eRename"
         Me.eRename.Size = New System.Drawing.Size(451, 20)
         Me.eRename.TabIndex = 5
+        Me.ToolTip1.SetToolTip(Me.eRename, "Se lasciato vuoto non verrà creata la cartella")
         '
         'Label3
         '
@@ -144,7 +145,7 @@ Partial Class Form1
         Me.ProgressBar1.TabIndex = 6
         Me.ProgressBar1.Visible = False
         '
-        'Form1
+        'fMain
         '
         Me.AcceptButton = Me.bVai
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -164,7 +165,7 @@ Partial Class Form1
         Me.MaximizeBox = False
         Me.MaximumSize = New System.Drawing.Size(800, 1000)
         Me.MinimumSize = New System.Drawing.Size(335, 39)
-        Me.Name = "Form1"
+        Me.Name = "fMain"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "FotoTeR"
         Me.ResumeLayout(False)

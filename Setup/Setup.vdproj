@@ -15,6 +15,12 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_024C7C8A5DEA6C02B7602165591CE9FD"
+        "OwnerKey" = "8:_B23EBD420B184AA6BAA75F749410923C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_155DA08D11944670A91D63AE6C3533CD"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -27,14 +33,50 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_812843FCCB39898679DC1EABF7E83EE5"
+        "OwnerKey" = "8:_B23EBD420B184AA6BAA75F749410923C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_B23EBD420B184AA6BAA75F749410923C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
+        "MsmKey" = "8:_EEE3138FDA147AE067B2995249490187"
+        "OwnerKey" = "8:_024C7C8A5DEA6C02B7602165591CE9FD"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_EEE3138FDA147AE067B2995249490187"
+        "OwnerKey" = "8:_B23EBD420B184AA6BAA75F749410923C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_B23EBD420B184AA6BAA75F749410923C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_024C7C8A5DEA6C02B7602165591CE9FD"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_EEE3138FDA147AE067B2995249490187"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_812843FCCB39898679DC1EABF7E83EE5"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -137,6 +179,37 @@
         }
         "File"
         {
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_024C7C8A5DEA6C02B7602165591CE9FD"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Raccoom.TreeViewFolderBrowser.DataProviders, Version=3.0.0.22091, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_024C7C8A5DEA6C02B7602165591CE9FD"
+                    {
+                    "Name" = "8:Raccoom.TreeViewFolderBrowser.DataProviders.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Raccoom.TreeViewFolderBrowser.DataProviders.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_8A1CF2A625074D3EB3BA5D7A62FE4AD6"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_155DA08D11944670A91D63AE6C3533CD"
             {
             "SourcePath" = "8:..\\FotoTeR\\BOUMP.jpg"
@@ -177,6 +250,68 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_812843FCCB39898679DC1EABF7E83EE5"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:MediaDevices, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_812843FCCB39898679DC1EABF7E83EE5"
+                    {
+                    "Name" = "8:MediaDevices.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:MediaDevices.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_8A1CF2A625074D3EB3BA5D7A62FE4AD6"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_EEE3138FDA147AE067B2995249490187"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Raccoom.TreeViewFolderBrowser, Version=3.0.0.22090, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_EEE3138FDA147AE067B2995249490187"
+                    {
+                    "Name" = "8:Raccoom.TreeViewFolderBrowser.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Raccoom.TreeViewFolderBrowser.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_8A1CF2A625074D3EB3BA5D7A62FE4AD6"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
@@ -185,7 +320,7 @@
         {
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_8A1CF2A625074D3EB3BA5D7A62FE4AD6"
             {
-            "DefaultLocation" = "8:[ProgramFilesFolder]MaioneMiky\\FotoTeR"
+            "DefaultLocation" = "8:[ProgramFiles64Folder]MaioneMiky\\FotoTeR"
             "Name" = "8:#1925"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
@@ -256,7 +391,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:FotoTeR"
         "ProductCode" = "8:{E3423444-AC68-4C6A-B250-60DC91F02489}"
-        "PackageCode" = "8:{9228AF1D-F5BE-4607-897A-B541657E50BC}"
+        "PackageCode" = "8:{CBA8D7F3-3920-49F2-9A70-D61F8F83BC6A}"
         "UpgradeCode" = "8:{F7DFFDF3-F3FE-4B27-8E5C-00F176AE78FE}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -671,7 +806,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_B23EBD420B184AA6BAA75F749410923C"
             {
-            "SourcePath" = "8:..\\FotoTeR\\obj\\x86\\Release\\FotoTeR.exe"
+            "SourcePath" = "8:..\\FotoTeR\\obj\\x64\\Release\\FotoTeR.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8A1CF2A625074D3EB3BA5D7A62FE4AD6"
