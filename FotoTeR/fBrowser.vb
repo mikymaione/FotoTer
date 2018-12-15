@@ -13,12 +13,12 @@ Public Class fBrowser
         }
 
         TreeViewFolderBrowser1.DataSource = shell32Provider
-        TreeViewFolderBrowser1.CheckBoxBehaviorMode = Raccoom.Windows.Forms.CheckBoxBehaviorMode.None
         TreeViewFolderBrowser1.Populate()
     End Sub
 
-    Private Sub TreeViewFolderBrowser1_SelectedDirectoriesChanged(sender As Object, e As Raccoom.Windows.Forms.SelectedDirectoriesChangedEventArgs) Handles TreeViewFolderBrowser1.SelectedDirectoriesChanged
-        Path = e.Path
+    Private Sub bOK_Click(sender As Object, e As EventArgs) Handles bOK.Click
+        Dim n = TreeViewFolderBrowser1.SelectedNode
+        Path = n.FullPath
     End Sub
 
 End Class

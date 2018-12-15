@@ -31,6 +31,7 @@ Partial Class fBrowser
         '
         'TreeViewFolderBrowser1
         '
+        Me.TreeViewFolderBrowser1.CheckBoxBehaviorMode = Raccoom.Windows.Forms.CheckBoxBehaviorMode.None
         Me.TreeViewFolderBrowser1.DataSource = Nothing
         Me.TreeViewFolderBrowser1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TreeViewFolderBrowser1.HideSelection = False
@@ -74,7 +75,8 @@ Partial Class fBrowser
         Me.MinimumSize = New System.Drawing.Size(200, 200)
         Me.Name = "fBrowser"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "FotoTeR"
+        Me.Text = "FotoTeR - Seleziona cartella da cui copiare"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.Panel1.ResumeLayout(False)
         Me.ResumeLayout(False)
 
