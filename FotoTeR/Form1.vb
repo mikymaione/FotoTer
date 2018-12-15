@@ -2,7 +2,13 @@
 'Copyright(c) 2018 Michele Maione
 'Permission Is hereby granted, free Of charge, to any person obtaining a copy of this software And associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, And/Or sell copies of the Software, And to permit persons to whom the Software Is furnished to do so, subject to the following conditions: The above copyright notice And this permission notice shall be included In all copies Or substantial portions Of the Software.
 'THE SOFTWARE Is PROVIDED "AS IS", WITHOUT WARRANTY Of ANY KIND, EXPRESS Or IMPLIED, INCLUDING BUT Not LIMITED To THE WARRANTIES Of MERCHANTABILITY, FITNESS For A PARTICULAR PURPOSE And NONINFRINGEMENT. In NO Event SHALL THE AUTHORS Or COPYRIGHT HOLDERS BE LIABLE For ANY CLAIM, DAMAGES Or OTHER LIABILITY, WHETHER In AN ACTION Of CONTRACT, TORT Or OTHERWISE, ARISING FROM, OUT Of Or In CONNECTION With THE SOFTWARE Or THE USE Or OTHER DEALINGS In THE SOFTWARE.
+Imports System.IO
+Imports MediaDevices
+
 Public Class Form1
+
+    Private PercorsoDB As String = Directory.GetParent(Application.UserAppDataPath).FullName & "\..\FotoTeR\Opzioni.db"
+
 
     <Serializable()>
     Structure sOpzioni
@@ -27,10 +33,8 @@ Public Class Form1
 
     Public Property Opzioni As sOpzioni
         Get
-            Dim s = IO.Path.Combine(IO.Directory.GetParent(Application.UserAppDataPath).FullName, "\..\FotoTeR\Opzioni.db")
-
-            If IO.File.Exists(s) Then
-                Using fs As New IO.FileStream(s, IO.FileMode.Open)
+            If File.Exists(PercorsoDB) Then
+                Using fs As New FileStream(PercorsoDB, FileMode.Open)
                     Dim bf As New Runtime.Serialization.Formatters.Binary.BinaryFormatter
 
                     Return bf.Deserialize(fs)
@@ -40,10 +44,9 @@ Public Class Form1
             Return New sOpzioni("", "")
         End Get
         Set(ByVal value As sOpzioni)
-            Dim s As String = IO.Directory.GetParent(Application.UserAppDataPath).FullName + "\..\FotoTeR\Opzioni.db"
-
-            Using fs As New IO.FileStream(s, IO.FileMode.OpenOrCreate)
+            Using fs As New FileStream(PercorsoDB, FileMode.OpenOrCreate)
                 Dim bf As New Runtime.Serialization.Formatters.Binary.BinaryFormatter
+
                 bf.Serialize(fs, value)
             End Using
         End Set
@@ -63,13 +66,13 @@ Public Class Form1
     End Sub
 
     Function ScegliCartella() As String
-        Using op As New FolderBrowserDialog
-            If op.ShowDialog() = DialogResult.OK Then
-                Return op.SelectedPath
-            Else
-                Return Nothing
+        Using fb As New fBrowser()
+            If fb.ShowDialog() = DialogResult.OK Then
+                Return fb.Path
             End If
         End Using
+
+        Return Nothing
     End Function
 
     Sub Vai()
@@ -79,7 +82,7 @@ Public Class Form1
         Dim t = eTo.Text
         Dim r = eRename.Text
 
-        Me.Enabled = False
+        Enabled = False
         Application.DoEvents()
 
         Try
@@ -96,18 +99,18 @@ Public Class Form1
         End Try
 
         If r <> "" Then
-            If IO.Directory.Exists(f) Then
+            If Directory.Exists(f) Then
                 If t <> "" Then
                     Try
                         t = t & "\" & r
-                        IO.Directory.CreateDirectory(t)
+                        Directory.CreateDirectory(t)
                     Catch ex As Exception
                         erro = ex.Message
                         ok = False
                     End Try
 
-                    If IO.Directory.Exists(t) Then
-                        Dim p = IO.Directory.GetFiles(f, "*", IO.SearchOption.AllDirectories)
+                    If Directory.Exists(t) Then
+                        Dim p = Directory.GetFiles(f, "*", SearchOption.AllDirectories)
                         Dim tt = -1
                         Dim founded = False
                         Dim typ(99) As TipoFile
@@ -118,7 +121,7 @@ Public Class Form1
                             If Not typ Is Nothing Then
                                 If typ.Length > 0 Then
                                     For z As Integer = 0 To typ.Length - 1
-                                        If IO.Path.GetExtension(p(y)) = typ(z).Tipo Then
+                                        If Path.GetExtension(p(y)) = typ(z).Tipo Then
                                             founded = True
                                             Exit For
                                         End If
@@ -128,7 +131,7 @@ Public Class Form1
 
                             If founded = False Then
                                 tt += 1
-                                typ(tt) = New TipoFile(IO.Path.GetExtension(p(y)))
+                                typ(tt) = New TipoFile(Path.GetExtension(p(y)))
                             End If
                         Next
 
@@ -140,26 +143,26 @@ Public Class Form1
                             If p.Length > 0 Then
                                 Dim s, d As String
 
-                                Me.ProgressBar1.Visible = True
-                                Me.ProgressBar1.Maximum = p.Length
+                                ProgressBar1.Visible = True
+                                ProgressBar1.Maximum = p.Length
                                 Application.DoEvents()
 
-                                If MsgBox("Vuoi copiare " & p.Length & " file ?", vbQuestion Or vbYesNo) = MsgBoxResult.Yes Then
+                                If MsgBox("Vuoi copiare " & p.Length & " file?", vbQuestion Or vbYesNo) = MsgBoxResult.Yes Then
                                     Application.DoEvents()
 
                                     Array.Sort(p)
 
                                     For x As Integer = 0 To p.Length - 1
                                         s = p(x)
-                                        d = t & "\" & r & " (" & GetNumberByType(Type_, IO.Path.GetExtension(s)) & ")" & IO.Path.GetExtension(s)
+                                        d = t & "\" & r & " (" & GetNumberByType(Type_, Path.GetExtension(s)) & ")" & Path.GetExtension(s)
 
                                         Try
-                                            IO.File.Copy(s, d, False)
+                                            File.Copy(s, d, False)
                                         Catch ex As Exception
                                             ok = False
                                         End Try
 
-                                        Me.ProgressBar1.Value = x + 1
+                                        ProgressBar1.Value = x + 1
                                         Application.DoEvents()
                                     Next
 
@@ -183,8 +186,8 @@ Public Class Form1
 
             Spegni()
         Else
-            Me.Enabled = True
-            MsgBox("Errore : " & erro, vbExclamation)
+            Enabled = True
+            MsgBox("Errore: " & erro, vbExclamation)
         End If
     End Sub
 
@@ -196,7 +199,7 @@ Public Class Form1
         PreSpegni()
 
         Application.DoEvents()
-        Me.Close()
+        Close()
     End Sub
 
     Function GetNumberByType(ByRef Array_() As TipoFile, ByVal Type_ As String) As Integer
@@ -218,7 +221,7 @@ Public Class Form1
         Return i
     End Function
 
-    Private Sub Form1_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
+    Private Sub Form1_FormClosing(ByVal sender As Object, ByVal e As FormClosingEventArgs) Handles MyBase.FormClosing
         PreSpegni()
     End Sub
 
@@ -235,16 +238,31 @@ Public Class Form1
         Return s
     End Function
 
-    Private Sub Form1_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
+    Private Sub Form1_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
         Dim o = Opzioni
 
-        Me.eRename.Text = DateToStringWithUnderSpace(Now) & "_"
-        Me.eRename.SelectionStart = 0
-        Me.eRename.SelectionLength = 0
+        eRename.Text = DateToStringWithUnderSpace(Now) & "_"
+        eRename.SelectionStart = 0
+        eRename.SelectionLength = 0
 
-        If IO.Directory.Exists(o.To_) Then Me.eTo.Text = o.To_
-        If IO.Directory.Exists(o.From_) Then Me.eFrom.Text = o.From_
+        If Directory.Exists(o.To_) Then eTo.Text = o.To_
+        If Directory.Exists(o.From_) Then eFrom.Text = o.From_
     End Sub
 
+    Private Sub CopiaDaDevice(devPath As String)
+        Dim devices = MediaDevice.GetDevices()
+
+        For Each d In devices
+            If d.FriendlyName = devPath Then
+                Using d
+                    d.Connect()
+                    d.DownloadFolder("", eTo.Text, True)
+                    d.Disconnect()
+                End Using
+
+                Exit For
+            End If
+        Next
+    End Sub
 
 End Class

@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Form1
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class Form1
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
@@ -40,67 +40,67 @@ Partial Class Form1
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(15, 9)
+        Me.Label1.Location = New System.Drawing.Point(12, 9)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(70, 13)
+        Me.Label1.Size = New System.Drawing.Size(117, 13)
         Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Trasferisci da"
+        Me.Label1.Text = "Trasferisci da percorso:"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(15, 58)
+        Me.Label2.Location = New System.Drawing.Point(12, 58)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(64, 13)
+        Me.Label2.Size = New System.Drawing.Size(111, 13)
         Me.Label2.TabIndex = 1
-        Me.Label2.Text = "Trasferisci a"
+        Me.Label2.Text = "Trasferisci a percorso:"
         '
         'eFrom
         '
         Me.eFrom.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.eFrom.Location = New System.Drawing.Point(15, 25)
+        Me.eFrom.Location = New System.Drawing.Point(12, 25)
         Me.eFrom.Name = "eFrom"
         Me.eFrom.ReadOnly = True
-        Me.eFrom.Size = New System.Drawing.Size(262, 20)
-        Me.eFrom.TabIndex = 0
+        Me.eFrom.Size = New System.Drawing.Size(420, 20)
+        Me.eFrom.TabIndex = 1
         '
         'eTo
         '
         Me.eTo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.eTo.Location = New System.Drawing.Point(15, 74)
+        Me.eTo.Location = New System.Drawing.Point(12, 74)
         Me.eTo.Name = "eTo"
         Me.eTo.ReadOnly = True
-        Me.eTo.Size = New System.Drawing.Size(262, 20)
-        Me.eTo.TabIndex = 2
+        Me.eTo.Size = New System.Drawing.Size(420, 20)
+        Me.eTo.TabIndex = 3
         '
         'eRename
         '
         Me.eRename.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.eRename.Location = New System.Drawing.Point(15, 123)
+        Me.eRename.Location = New System.Drawing.Point(12, 123)
         Me.eRename.Name = "eRename"
-        Me.eRename.Size = New System.Drawing.Size(293, 20)
-        Me.eRename.TabIndex = 4
+        Me.eRename.Size = New System.Drawing.Size(451, 20)
+        Me.eRename.TabIndex = 5
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(15, 107)
+        Me.Label3.Location = New System.Drawing.Point(12, 107)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(62, 13)
+        Me.Label3.Size = New System.Drawing.Size(65, 13)
         Me.Label3.TabIndex = 5
-        Me.Label3.Text = "Rinomina in"
+        Me.Label3.Text = "Rinomina in:"
         '
         'bFrom
         '
         Me.bFrom.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.bFrom.Image = Global.FotoTeR.My.Resources.Resources.folder_picture
-        Me.bFrom.Location = New System.Drawing.Point(283, 23)
+        Me.bFrom.Location = New System.Drawing.Point(438, 23)
         Me.bFrom.Name = "bFrom"
         Me.bFrom.Size = New System.Drawing.Size(25, 25)
-        Me.bFrom.TabIndex = 1
+        Me.bFrom.TabIndex = 2
         Me.ToolTip1.SetToolTip(Me.bFrom, "Scegli cartella ...")
         Me.bFrom.UseVisualStyleBackColor = True
         '
@@ -114,10 +114,10 @@ Partial Class Form1
         '
         Me.bVai.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.bVai.Image = Global.FotoTeR.My.Resources.Resources.accept
-        Me.bVai.Location = New System.Drawing.Point(252, 164)
+        Me.bVai.Location = New System.Drawing.Point(407, 174)
         Me.bVai.Name = "bVai"
         Me.bVai.Size = New System.Drawing.Size(56, 25)
-        Me.bVai.TabIndex = 5
+        Me.bVai.TabIndex = 6
         Me.bVai.Text = "Vai"
         Me.bVai.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.ToolTip1.SetToolTip(Me.bVai, "Inizia il processo di trasferimento e rinomina")
@@ -127,10 +127,10 @@ Partial Class Form1
         '
         Me.bTo.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.bTo.Image = Global.FotoTeR.My.Resources.Resources.folder_picture
-        Me.bTo.Location = New System.Drawing.Point(283, 72)
+        Me.bTo.Location = New System.Drawing.Point(438, 72)
         Me.bTo.Name = "bTo"
         Me.bTo.Size = New System.Drawing.Size(25, 25)
-        Me.bTo.TabIndex = 3
+        Me.bTo.TabIndex = 4
         Me.ToolTip1.SetToolTip(Me.bTo, "Scegli cartella ...")
         Me.bTo.UseVisualStyleBackColor = True
         '
@@ -138,9 +138,9 @@ Partial Class Form1
         '
         Me.ProgressBar1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ProgressBar1.Location = New System.Drawing.Point(15, 164)
+        Me.ProgressBar1.Location = New System.Drawing.Point(12, 174)
         Me.ProgressBar1.Name = "ProgressBar1"
-        Me.ProgressBar1.Size = New System.Drawing.Size(231, 25)
+        Me.ProgressBar1.Size = New System.Drawing.Size(389, 25)
         Me.ProgressBar1.TabIndex = 6
         Me.ProgressBar1.Visible = False
         '
@@ -149,7 +149,7 @@ Partial Class Form1
         Me.AcceptButton = Me.bVai
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(319, 196)
+        Me.ClientSize = New System.Drawing.Size(477, 211)
         Me.Controls.Add(Me.ProgressBar1)
         Me.Controls.Add(Me.bVai)
         Me.Controls.Add(Me.bTo)
@@ -162,8 +162,8 @@ Partial Class Form1
         Me.Controls.Add(Me.Label1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
-        Me.MaximumSize = New System.Drawing.Size(800, 235)
-        Me.MinimumSize = New System.Drawing.Size(335, 235)
+        Me.MaximumSize = New System.Drawing.Size(800, 1000)
+        Me.MinimumSize = New System.Drawing.Size(335, 39)
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "FotoTeR"
@@ -182,5 +182,4 @@ Partial Class Form1
     Friend WithEvents bTo As System.Windows.Forms.Button
     Friend WithEvents bVai As System.Windows.Forms.Button
     Friend WithEvents ProgressBar1 As System.Windows.Forms.ProgressBar
-
 End Class
