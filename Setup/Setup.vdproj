@@ -64,7 +64,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_024C7C8A5DEA6C02B7602165591CE9FD"
+        "OwnerKey" = "8:_812843FCCB39898679DC1EABF7E83EE5"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -76,7 +76,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_812843FCCB39898679DC1EABF7E83EE5"
+        "OwnerKey" = "8:_024C7C8A5DEA6C02B7602165591CE9FD"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -186,11 +186,6 @@
             "AssemblyAsmDisplayName" = "8:Raccoom.TreeViewFolderBrowser.DataProviders, Version=3.0.0.22091, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_024C7C8A5DEA6C02B7602165591CE9FD"
-                    {
-                    "Name" = "8:Raccoom.TreeViewFolderBrowser.DataProviders.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Raccoom.TreeViewFolderBrowser.DataProviders.dll"
             "TargetName" = "8:"
@@ -257,11 +252,6 @@
             "AssemblyAsmDisplayName" = "8:MediaDevices, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_812843FCCB39898679DC1EABF7E83EE5"
-                    {
-                    "Name" = "8:MediaDevices.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:MediaDevices.dll"
             "TargetName" = "8:"
@@ -288,11 +278,6 @@
             "AssemblyAsmDisplayName" = "8:Raccoom.TreeViewFolderBrowser, Version=3.0.0.22090, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_EEE3138FDA147AE067B2995249490187"
-                    {
-                    "Name" = "8:Raccoom.TreeViewFolderBrowser.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Raccoom.TreeViewFolderBrowser.dll"
             "TargetName" = "8:"
@@ -390,15 +375,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:FotoTeR"
-        "ProductCode" = "8:{E3423444-AC68-4C6A-B250-60DC91F02489}"
-        "PackageCode" = "8:{CBA8D7F3-3920-49F2-9A70-D61F8F83BC6A}"
+        "ProductCode" = "8:{8B399C0E-C1DE-4F04-8F6B-C15619959519}"
+        "PackageCode" = "8:{125F2728-D25D-4320-ACBC-84E42CAF25EA}"
         "UpgradeCode" = "8:{F7DFFDF3-F3FE-4B27-8E5C-00F176AE78FE}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:20.18.1214"
+        "ProductVersion" = "8:20.18.1215"
         "Manufacturer" = "8:[MAIONE MIKY]"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

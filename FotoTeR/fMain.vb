@@ -87,49 +87,50 @@ Public Class fMain
 
     Sub Vai()
         Dim ok = False
-        Dim erro = "Riempire tutti i campi"
-        Dim f = eFrom.Text
-        Dim t = eTo.Text
-        Dim r = eRename.Text
+        Dim error_text = "Riempire tutti i campi"
+        Dim folder_to = eTo.Text
+        Dim folder_from = eFrom.Text
+        Dim folder_from_abs = folder_from
+        Dim rename_string = eRename.Text
 
         Enabled = False
         Application.DoEvents()
 
         Try
-            r = r.Replace("\", "")
-            r = r.Replace("/", "")
-            r = r.Replace("?", "")
-            r = r.Replace(":", "")
-            r = r.Replace("*", "")
-            r = r.Replace("<", "")
-            r = r.Replace(">", "")
-            r = r.Replace("|", "")
+            rename_string = rename_string.Replace("\", "")
+            rename_string = rename_string.Replace("/", "")
+            rename_string = rename_string.Replace("?", "")
+            rename_string = rename_string.Replace(":", "")
+            rename_string = rename_string.Replace("*", "")
+            rename_string = rename_string.Replace("<", "")
+            rename_string = rename_string.Replace(">", "")
+            rename_string = rename_string.Replace("|", "")
         Catch ex As Exception
             ok = False
         End Try
 
-        If t <> "" Then
+        If folder_to <> "" Then
             Try
-                t = t & "\" & r
-                If Not Directory.Exists(t) Then Directory.CreateDirectory(t)
+                folder_to = folder_to & "\" & rename_string
+                If Not Directory.Exists(folder_to) Then Directory.CreateDirectory(folder_to)
             Catch ex As Exception
-                erro = ex.Message
+                error_text = ex.Message
                 ok = False
             End Try
 
-            If Directory.Exists(t) Then
-                Dim p = GetFilesFromPath(f)
-                Dim tt = -1
+            If Directory.Exists(folder_to) Then
+                Dim photographs = GetFilesFromPath(folder_from, folder_from_abs)
+                Dim file_types_index = -1
                 Dim founded = False
-                Dim typ(99) As TipoFile
+                Dim file_types_0(99) As TipoFile
 
-                For y = 0 To p.Length - 1
+                For y = 0 To photographs.Length - 1
                     founded = False
 
-                    If Not typ Is Nothing Then
-                        If typ.Length > 0 Then
-                            For z = 0 To typ.Length - 1
-                                If Path.GetExtension(p(y)) = typ(z).Tipo Then
+                    If Not file_types_0 Is Nothing Then
+                        If file_types_0.Length > 0 Then
+                            For z = 0 To file_types_0.Length - 1
+                                If Path.GetExtension(photographs(y)) = file_types_0(z).Tipo Then
                                     founded = True
                                     Exit For
                                 End If
@@ -138,43 +139,43 @@ Public Class fMain
                     End If
 
                     If founded = False Then
-                        tt += 1
-                        typ(tt) = New TipoFile(Path.GetExtension(p(y)))
+                        file_types_index += 1
+                        file_types_0(file_types_index) = New TipoFile(Path.GetExtension(photographs(y)))
                     End If
                 Next
 
-                Dim Type_(tt) As TipoFile
+                Dim file_types_1(file_types_index) As TipoFile
+                Array.Copy(file_types_0, file_types_1, file_types_index + 1)
 
-                Array.Copy(typ, Type_, tt + 1)
-
-                If p.Length > 0 Then
-                    Dim s, d As String
+                If photographs.Length > 0 Then
+                    Dim copy_difference, copy_source, copy_destination As String
 
                     ProgressBar1.Visible = True
-                    ProgressBar1.Maximum = p.Length
+                    ProgressBar1.Maximum = photographs.Length
                     Application.DoEvents()
 
-                    If MsgBox("Vuoi copiare " & p.Length & " file?", vbQuestion Or vbYesNo) = MsgBoxResult.Yes Then
+                    If MsgBox("Vuoi copiare " & photographs.Length & " file?", vbQuestion Or vbYesNo) = MsgBoxResult.Yes Then
                         Application.DoEvents()
+                        Array.Sort(photographs)
 
-                        Array.Sort(p)
+                        For photo_index = 0 To photographs.Length - 1
+                            copy_source = photographs(photo_index)
+                            copy_difference = copy_source.Replace(folder_from_abs, "")
+                            If copy_difference(0) = "\" Then copy_difference = copy_difference.Remove(0, 1)
 
-                        For x = 0 To p.Length - 1
-                            s = p(x)
-
-                            If r = "" Then
-                                d = t & Path.GetFileName(s)
+                            If rename_string = "" Then
+                                copy_destination = Path.Combine(folder_to, copy_difference)
                             Else
-                                d = t & "\" & r & " (" & GetNumberByType(Type_, Path.GetExtension(s)) & ")" & Path.GetExtension(s)
+                                copy_destination = folder_to & "\" & rename_string & " (" & GetNumberByType(file_types_1, Path.GetExtension(copy_source)) & ")" & Path.GetExtension(copy_source)
                             End If
 
                             Try
-                                FileCopyD(s, d)
+                                FileCopyD(copy_source, copy_destination)
                             Catch ex As Exception
                                 ok = False
                             End Try
 
-                            ProgressBar1.Value = x + 1
+                            ProgressBar1.Value = photo_index + 1
                             Application.DoEvents()
                         Next
 
@@ -188,7 +189,7 @@ Public Class fMain
             MsgBox("Finito !", vbInformation)
 
             Try
-                Process.Start(t)
+                Process.Start(folder_to)
             Catch ex As Exception
                 Application.DoEvents()
             End Try
@@ -196,7 +197,7 @@ Public Class fMain
             Spegni()
         Else
             Enabled = True
-            MsgBox("Errore: " & erro, vbExclamation)
+            MsgBox("Errore: " & error_text, vbExclamation)
         End If
     End Sub
 
@@ -272,7 +273,7 @@ Public Class fMain
         End If
     End Sub
 
-    Private Function GetFilesFromPath(devPath As String) As String()
+    Private Function GetFilesFromPath(devPath As String, ByRef devPathAbs As String) As String()
         If Directory.Exists(devPath) Then
             Return Directory.GetFiles(devPath, "*", SearchOption.AllDirectories)
         Else
@@ -290,6 +291,8 @@ Public Class fMain
                 For Each f In fi
                     files.Add(f.FullName)
                 Next
+
+                devPathAbs = di.FullName
 
                 Return files.ToArray()
             End If
