@@ -29,12 +29,13 @@ Partial Class fMain
         Me.eFrom = New System.Windows.Forms.TextBox()
         Me.eTo = New System.Windows.Forms.TextBox()
         Me.eRename = New System.Windows.Forms.TextBox()
-        Me.Label3 = New System.Windows.Forms.Label()
         Me.bFrom = New System.Windows.Forms.Button()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.bVai = New System.Windows.Forms.Button()
         Me.bTo = New System.Windows.Forms.Button()
         Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
+        Me.cbRinomina = New System.Windows.Forms.CheckBox()
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.SuspendLayout()
         '
         'Label1
@@ -63,7 +64,7 @@ Partial Class fMain
         Me.eFrom.Name = "eFrom"
         Me.eFrom.ReadOnly = True
         Me.eFrom.Size = New System.Drawing.Size(420, 20)
-        Me.eFrom.TabIndex = 1
+        Me.eFrom.TabIndex = 0
         '
         'eTo
         '
@@ -73,26 +74,18 @@ Partial Class fMain
         Me.eTo.Name = "eTo"
         Me.eTo.ReadOnly = True
         Me.eTo.Size = New System.Drawing.Size(420, 20)
-        Me.eTo.TabIndex = 3
+        Me.eTo.TabIndex = 2
         '
         'eRename
         '
         Me.eRename.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.eRename.Location = New System.Drawing.Point(12, 123)
+        Me.eRename.Enabled = False
+        Me.eRename.Location = New System.Drawing.Point(12, 133)
         Me.eRename.Name = "eRename"
         Me.eRename.Size = New System.Drawing.Size(451, 20)
         Me.eRename.TabIndex = 5
         Me.ToolTip1.SetToolTip(Me.eRename, "Se lasciato vuoto non verrà creata la cartella")
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(12, 107)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(65, 13)
-        Me.Label3.TabIndex = 5
-        Me.Label3.Text = "Rinomina in:"
         '
         'bFrom
         '
@@ -101,7 +94,7 @@ Partial Class fMain
         Me.bFrom.Location = New System.Drawing.Point(438, 23)
         Me.bFrom.Name = "bFrom"
         Me.bFrom.Size = New System.Drawing.Size(25, 25)
-        Me.bFrom.TabIndex = 2
+        Me.bFrom.TabIndex = 1
         Me.ToolTip1.SetToolTip(Me.bFrom, "Scegli cartella ...")
         Me.bFrom.UseVisualStyleBackColor = True
         '
@@ -131,7 +124,7 @@ Partial Class fMain
         Me.bTo.Location = New System.Drawing.Point(438, 72)
         Me.bTo.Name = "bTo"
         Me.bTo.Size = New System.Drawing.Size(25, 25)
-        Me.bTo.TabIndex = 4
+        Me.bTo.TabIndex = 3
         Me.ToolTip1.SetToolTip(Me.bTo, "Scegli cartella ...")
         Me.bTo.UseVisualStyleBackColor = True
         '
@@ -145,17 +138,32 @@ Partial Class fMain
         Me.ProgressBar1.TabIndex = 6
         Me.ProgressBar1.Visible = False
         '
+        'cbRinomina
+        '
+        Me.cbRinomina.AutoSize = True
+        Me.cbRinomina.Location = New System.Drawing.Point(12, 110)
+        Me.cbRinomina.Name = "cbRinomina"
+        Me.cbRinomina.Size = New System.Drawing.Size(84, 17)
+        Me.cbRinomina.TabIndex = 4
+        Me.cbRinomina.Text = "Rinomina in:"
+        Me.cbRinomina.UseVisualStyleBackColor = True
+        '
+        'Timer1
+        '
+        Me.Timer1.Enabled = True
+        Me.Timer1.Interval = 800
+        '
         'fMain
         '
         Me.AcceptButton = Me.bVai
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(477, 211)
+        Me.Controls.Add(Me.cbRinomina)
         Me.Controls.Add(Me.ProgressBar1)
         Me.Controls.Add(Me.bVai)
         Me.Controls.Add(Me.bTo)
         Me.Controls.Add(Me.bFrom)
-        Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.eRename)
         Me.Controls.Add(Me.eTo)
         Me.Controls.Add(Me.eFrom)
@@ -177,10 +185,11 @@ Partial Class fMain
     Friend WithEvents eFrom As System.Windows.Forms.TextBox
     Friend WithEvents eTo As System.Windows.Forms.TextBox
     Friend WithEvents eRename As System.Windows.Forms.TextBox
-    Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents bFrom As System.Windows.Forms.Button
     Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
     Friend WithEvents bTo As System.Windows.Forms.Button
     Friend WithEvents bVai As System.Windows.Forms.Button
     Friend WithEvents ProgressBar1 As System.Windows.Forms.ProgressBar
+    Friend WithEvents cbRinomina As CheckBox
+    Friend WithEvents Timer1 As Timer
 End Class

@@ -91,7 +91,7 @@ Public Class fMain
         Dim folder_to = eTo.Text
         Dim folder_from = eFrom.Text
         Dim folder_from_abs = folder_from
-        Dim rename_string = eRename.Text
+        Dim rename_string = If(cbRinomina.Checked, eRename.Text, "")
 
         Enabled = False
         Application.DoEvents()
@@ -154,7 +154,7 @@ Public Class fMain
                     ProgressBar1.Maximum = photographs.Length
                     Application.DoEvents()
 
-                    If MsgBox("Vuoi copiare " & photographs.Length & " file?", vbQuestion Or vbYesNo) = MsgBoxResult.Yes Then
+                    If MsgBox("Vuoi copiare " & photographs.Length & " files (i files già esistenti verrano saltati)?", vbQuestion Or vbYesNo) = MsgBoxResult.Yes Then
                         Application.DoEvents()
                         Array.Sort(photographs)
 
@@ -343,6 +343,14 @@ Public Class fMain
                 Exit For
             End If
         Next
+    End Sub
+
+    Private Sub cbRinomina_CheckedChanged(sender As Object, e As EventArgs) Handles cbRinomina.CheckedChanged
+        eRename.Enabled = cbRinomina.Checked
+    End Sub
+
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+        Application.DoEvents()
     End Sub
 
 End Class
