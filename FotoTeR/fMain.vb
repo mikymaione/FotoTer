@@ -75,7 +75,7 @@ Public Class fMain
         eTo.Text = ScegliCartella()
     End Sub
 
-    Function ScegliCartella() As String
+    Private Function ScegliCartella() As String
         Using fb As New fBrowser()
             If fb.ShowDialog() = DialogResult.OK Then
                 Return fb.Path
@@ -85,7 +85,16 @@ Public Class fMain
         Return ""
     End Function
 
-    Sub Vai()
+    Private Sub Vai()
+        Dim T As New Threading.Thread(
+            Sub()
+                VaiThreaded()
+            End Sub)
+
+        T.Start()
+    End Sub
+
+    Private Sub VaiThreaded()
         Dim ok = False
         Dim error_text = "Riempire tutti i campi"
         Dim folder_to = eTo.Text
@@ -201,18 +210,18 @@ Public Class fMain
         End If
     End Sub
 
-    Sub PreSpegni()
+    Private Sub PreSpegni()
         Opzioni = New sOpzioni(eFrom.Text, eTo.Text)
     End Sub
 
-    Sub Spegni()
+    Private Sub Spegni()
         PreSpegni()
 
         Application.DoEvents()
         Close()
     End Sub
 
-    Function GetNumberByType(ByRef Array_() As TipoFile, ByVal Type_ As String) As Integer
+    Private Function GetNumberByType(ByRef Array_() As TipoFile, ByVal Type_ As String) As Integer
         Dim i = 0
 
         If Not Array_ Is Nothing Then
@@ -347,10 +356,6 @@ Public Class fMain
 
     Private Sub cbRinomina_CheckedChanged(sender As Object, e As EventArgs) Handles cbRinomina.CheckedChanged
         eRename.Enabled = cbRinomina.Checked
-    End Sub
-
-    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        Application.DoEvents()
     End Sub
 
 End Class

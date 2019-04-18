@@ -35,7 +35,6 @@ Partial Class fMain
         Me.bTo = New System.Windows.Forms.Button()
         Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
         Me.cbRinomina = New System.Windows.Forms.CheckBox()
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.SuspendLayout()
         '
         'Label1
@@ -148,11 +147,6 @@ Partial Class fMain
         Me.cbRinomina.Text = "Rinomina in:"
         Me.cbRinomina.UseVisualStyleBackColor = True
         '
-        'Timer1
-        '
-        Me.Timer1.Enabled = True
-        Me.Timer1.Interval = 800
-        '
         'fMain
         '
         Me.AcceptButton = Me.bVai
@@ -191,5 +185,4 @@ Partial Class fMain
     Friend WithEvents bVai As System.Windows.Forms.Button
     Friend WithEvents ProgressBar1 As System.Windows.Forms.ProgressBar
     Friend WithEvents cbRinomina As CheckBox
-    Friend WithEvents Timer1 As Timer
 End Class
