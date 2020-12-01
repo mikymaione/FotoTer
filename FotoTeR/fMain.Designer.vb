@@ -35,8 +35,6 @@ Partial Class fMain
         Me.bTo = New System.Windows.Forms.Button()
         Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
         Me.cbRinomina = New System.Windows.Forms.CheckBox()
-        Me.lbErrori = New System.Windows.Forms.ListBox()
-        Me.Label3 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'Label1
@@ -109,7 +107,7 @@ Partial Class fMain
         '
         Me.bVai.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.bVai.Image = Global.FotoTeR.My.Resources.Resources.accept
-        Me.bVai.Location = New System.Drawing.Point(407, 485)
+        Me.bVai.Location = New System.Drawing.Point(407, 172)
         Me.bVai.Name = "bVai"
         Me.bVai.Size = New System.Drawing.Size(56, 25)
         Me.bVai.TabIndex = 6
@@ -133,7 +131,7 @@ Partial Class fMain
         '
         Me.ProgressBar1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ProgressBar1.Location = New System.Drawing.Point(12, 485)
+        Me.ProgressBar1.Location = New System.Drawing.Point(12, 172)
         Me.ProgressBar1.Name = "ProgressBar1"
         Me.ProgressBar1.Size = New System.Drawing.Size(389, 25)
         Me.ProgressBar1.TabIndex = 6
@@ -149,31 +147,12 @@ Partial Class fMain
         Me.cbRinomina.Text = "Rinomina in:"
         Me.cbRinomina.UseVisualStyleBackColor = True
         '
-        'lbErrori
-        '
-        Me.lbErrori.FormattingEnabled = True
-        Me.lbErrori.Location = New System.Drawing.Point(12, 172)
-        Me.lbErrori.Name = "lbErrori"
-        Me.lbErrori.Size = New System.Drawing.Size(451, 303)
-        Me.lbErrori.TabIndex = 7
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(12, 156)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(34, 13)
-        Me.Label3.TabIndex = 8
-        Me.Label3.Text = "Errori:"
-        '
         'fMain
         '
         Me.AcceptButton = Me.bVai
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(477, 522)
-        Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.lbErrori)
+        Me.ClientSize = New System.Drawing.Size(477, 209)
         Me.Controls.Add(Me.cbRinomina)
         Me.Controls.Add(Me.ProgressBar1)
         Me.Controls.Add(Me.bVai)
@@ -206,6 +185,4 @@ Partial Class fMain
     Friend WithEvents bVai As System.Windows.Forms.Button
     Friend WithEvents ProgressBar1 As System.Windows.Forms.ProgressBar
     Friend WithEvents cbRinomina As CheckBox
-    Friend WithEvents lbErrori As ListBox
-    Friend WithEvents Label3 As Label
 End Class

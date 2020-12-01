@@ -36,6 +36,19 @@ Public Class fMain
         End Sub
     End Structure
 
+    Public WriteOnly Property AbilitaInterfaccia As Boolean
+        Set(ByVal value As Boolean)
+            Cursor.Current = IIf(value, Cursors.Default, Cursors.WaitCursor)
+
+            bFrom.Enabled = value
+            bTo.Enabled = value
+            bVai.Enabled = value
+            cbRinomina.Enabled = value
+            eRename.Enabled = value
+
+            Application.DoEvents()
+        End Set
+    End Property
 
     Public Property Opzioni As sOpzioni
         Get
@@ -64,7 +77,15 @@ Public Class fMain
 
 
     Private Sub bVai_Click(ByVal sender As Object, ByVal e As EventArgs) Handles bVai.Click
-        Vai()
+        AbilitaInterfaccia = False
+
+        Try
+            Vai()
+        Catch ex As Exception
+            MsgBox("Errore: " & ex.Message, vbExclamation)
+        End Try
+
+        AbilitaInterfaccia = True
     End Sub
 
     Private Sub bFrom_Click(ByVal sender As Object, ByVal e As EventArgs) Handles bFrom.Click
@@ -86,22 +107,6 @@ Public Class fMain
     End Function
 
     Private Sub Vai()
-        lbErrori.Items.Clear()
-        Cursor.Current = Cursors.WaitCursor
-        Enabled = False
-        Application.DoEvents()
-
-        'VaiThreaded()
-
-        Dim T As New Threading.Thread(
-            Sub()
-                VaiThreaded()
-            End Sub)
-
-        T.Start()
-    End Sub
-
-    Private Sub VaiThreaded()
         Dim ok = False
         Dim error_text = "Riempire tutti i campi"
         Dim folder_to = eTo.Text
@@ -109,29 +114,18 @@ Public Class fMain
         Dim folder_from_abs = folder_from
         Dim rename_string = If(cbRinomina.Checked, eRename.Text, "")
 
-        Try
-            rename_string = rename_string.Replace("\", "")
-            rename_string = rename_string.Replace("/", "")
-            rename_string = rename_string.Replace("?", "")
-            rename_string = rename_string.Replace(":", "")
-            rename_string = rename_string.Replace("*", "")
-            rename_string = rename_string.Replace("<", "")
-            rename_string = rename_string.Replace(">", "")
-            rename_string = rename_string.Replace("|", "")
-        Catch ex As Exception
-            ok = False
-            lbErrori.Items.Insert(0, ex.Message)
-        End Try
+        rename_string = rename_string.Replace("\", "")
+        rename_string = rename_string.Replace("/", "")
+        rename_string = rename_string.Replace("?", "")
+        rename_string = rename_string.Replace(":", "")
+        rename_string = rename_string.Replace("*", "")
+        rename_string = rename_string.Replace("<", "")
+        rename_string = rename_string.Replace(">", "")
+        rename_string = rename_string.Replace("|", "")
 
         If folder_to <> "" Then
-            Try
-                folder_to = folder_to & "\" & rename_string
-                If Not Directory.Exists(folder_to) Then Directory.CreateDirectory(folder_to)
-            Catch ex As Exception
-                error_text = ex.Message
-                ok = False
-                lbErrori.Items.Insert(0, ex.Message)
-            End Try
+            folder_to = folder_to & "\" & rename_string
+            If Not Directory.Exists(folder_to) Then Directory.CreateDirectory(folder_to)
 
             If Directory.Exists(folder_to) Then
                 Dim photographs = GetFilesFromPath(folder_from, folder_from_abs)
@@ -167,10 +161,8 @@ Public Class fMain
 
                     ProgressBar1.Visible = True
                     ProgressBar1.Maximum = photographs.Length
-                    Application.DoEvents()
 
                     If MsgBox("Vuoi copiare " & photographs.Length & " files (i files già esistenti verrano saltati)?", vbQuestion Or vbYesNo) = MsgBoxResult.Yes Then
-                        Application.DoEvents()
                         Array.Sort(photographs)
 
                         Dim cartellaDestPred = ""
@@ -186,28 +178,19 @@ Public Class fMain
                                 copy_destination = folder_to & "\" & rename_string & " (" & GetNumberByType(file_types_1, Path.GetExtension(copy_source)) & ")" & Path.GetExtension(copy_source)
                             End If
 
-                            Try
-                                Dim cartellaDest = Path.GetDirectoryName(copy_destination)
+                            Dim cartellaDest = Path.GetDirectoryName(copy_destination)
 
-                                If Not cartellaDestPred.Equals(cartellaDest) Then
-                                    If Not Directory.Exists(cartellaDest) Then
-                                        Directory.CreateDirectory(cartellaDest)
-                                    End If
+                            If Not cartellaDestPred.Equals(cartellaDest) Then
+                                If Not Directory.Exists(cartellaDest) Then
+                                    Directory.CreateDirectory(cartellaDest)
                                 End If
-                            Catch ex As Exception
-                                ok = False
-                                lbErrori.Items.Insert(0, ex.Message)
-                            End Try
+                            End If
 
-                            Try
-                                FileCopyD(copy_source, copy_destination)
-                            Catch ex As Exception
-                                ok = False
-                                lbErrori.Items.Insert(0, ex.Message)
-                            End Try
+                            Dim thread As New Threading.Thread(Sub() FileCopyD(copy_source, copy_destination))
+                            thread.Start()
+                            thread.Join()
 
                             ProgressBar1.Value = photo_index + 1
-                            Application.DoEvents()
                         Next
 
                         ok = True
@@ -216,17 +199,10 @@ Public Class fMain
             End If
         End If
 
-        Cursor.Current = Cursors.Default
-
         If ok Then
             MsgBox("Finito !", vbInformation)
 
-            Try
-                Process.Start(folder_to)
-            Catch ex As Exception
-                Application.DoEvents()
-                lbErrori.Items.Insert(0, ex.Message)
-            End Try
+            Process.Start(folder_to)
 
             Spegni()
         Else
@@ -241,8 +217,6 @@ Public Class fMain
 
     Private Sub Spegni()
         PreSpegni()
-
-        Application.DoEvents()
         Close()
     End Sub
 
