@@ -64,7 +64,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_812843FCCB39898679DC1EABF7E83EE5"
+        "OwnerKey" = "8:_024C7C8A5DEA6C02B7602165591CE9FD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -76,7 +76,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_024C7C8A5DEA6C02B7602165591CE9FD"
+        "OwnerKey" = "8:_812843FCCB39898679DC1EABF7E83EE5"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -375,15 +375,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:FotoTeR"
-        "ProductCode" = "8:{C0C0C48A-D00E-4384-B630-4B4F8A62EEE1}"
-        "PackageCode" = "8:{B9BA9965-1586-49D9-930E-EE4EC5A623BA}"
+        "ProductCode" = "8:{4CD6A157-42B6-4241-A740-6BE010C471E5}"
+        "PackageCode" = "8:{7023BC39-4165-47D8-A2DC-2E4D27219ED7}"
         "UpgradeCode" = "8:{F7DFFDF3-F3FE-4B27-8E5C-00F176AE78FE}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:20.19.0418"
+        "ProductVersion" = "8:20.20.1201"
         "Manufacturer" = "8:[MAIONE MIKY]"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -791,7 +791,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_B23EBD420B184AA6BAA75F749410923C"
             {
-            "SourcePath" = "8:..\\FotoTeR\\obj\\x64\\Release\\FotoTeR.exe"
+            "SourcePath" = "8:..\\FotoTeR\\obj\\x86\\Debug\\FotoTeR.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8A1CF2A625074D3EB3BA5D7A62FE4AD6"

@@ -86,6 +86,13 @@ Public Class fMain
     End Function
 
     Private Sub Vai()
+        lbErrori.Items.Clear()
+        Cursor.Current = Cursors.WaitCursor
+        Enabled = False
+        Application.DoEvents()
+
+        'VaiThreaded()
+
         Dim T As New Threading.Thread(
             Sub()
                 VaiThreaded()
@@ -102,9 +109,6 @@ Public Class fMain
         Dim folder_from_abs = folder_from
         Dim rename_string = If(cbRinomina.Checked, eRename.Text, "")
 
-        Enabled = False
-        Application.DoEvents()
-
         Try
             rename_string = rename_string.Replace("\", "")
             rename_string = rename_string.Replace("/", "")
@@ -116,6 +120,7 @@ Public Class fMain
             rename_string = rename_string.Replace("|", "")
         Catch ex As Exception
             ok = False
+            lbErrori.Items.Insert(0, ex.Message)
         End Try
 
         If folder_to <> "" Then
@@ -125,6 +130,7 @@ Public Class fMain
             Catch ex As Exception
                 error_text = ex.Message
                 ok = False
+                lbErrori.Items.Insert(0, ex.Message)
             End Try
 
             If Directory.Exists(folder_to) Then
@@ -167,6 +173,8 @@ Public Class fMain
                         Application.DoEvents()
                         Array.Sort(photographs)
 
+                        Dim cartellaDestPred = ""
+
                         For photo_index = 0 To photographs.Length - 1
                             copy_source = photographs(photo_index)
                             copy_difference = copy_source.Replace(folder_from_abs, "")
@@ -179,9 +187,23 @@ Public Class fMain
                             End If
 
                             Try
+                                Dim cartellaDest = Path.GetDirectoryName(copy_destination)
+
+                                If Not cartellaDestPred.Equals(cartellaDest) Then
+                                    If Not Directory.Exists(cartellaDest) Then
+                                        Directory.CreateDirectory(cartellaDest)
+                                    End If
+                                End If
+                            Catch ex As Exception
+                                ok = False
+                                lbErrori.Items.Insert(0, ex.Message)
+                            End Try
+
+                            Try
                                 FileCopyD(copy_source, copy_destination)
                             Catch ex As Exception
                                 ok = False
+                                lbErrori.Items.Insert(0, ex.Message)
                             End Try
 
                             ProgressBar1.Value = photo_index + 1
@@ -194,6 +216,8 @@ Public Class fMain
             End If
         End If
 
+        Cursor.Current = Cursors.Default
+
         If ok Then
             MsgBox("Finito !", vbInformation)
 
@@ -201,6 +225,7 @@ Public Class fMain
                 Process.Start(folder_to)
             Catch ex As Exception
                 Application.DoEvents()
+                lbErrori.Items.Insert(0, ex.Message)
             End Try
 
             Spegni()
