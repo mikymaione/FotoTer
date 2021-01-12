@@ -353,7 +353,7 @@ Public Class fMain
 
             FileCopyD(copy_source, copy_destination)
 
-            ProgressBar1.Value = photo_index + 1
+            BackgroundWorker1.ReportProgress(photo_index + 1)
         Next
     End Sub
 
