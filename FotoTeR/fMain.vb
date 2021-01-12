@@ -162,39 +162,37 @@ Public Class fMain
                     ProgressBar1.Visible = True
                     ProgressBar1.Maximum = photographs.Length
 
-                    If MsgBox("Vuoi copiare " & photographs.Length & " files (i files già esistenti verrano saltati)?", vbQuestion Or vbYesNo) = MsgBoxResult.Yes Then
-                        Array.Sort(photographs)
+                    Array.Sort(photographs)
 
-                        Dim cartellaDestPred = ""
+                    Dim cartellaDestPred = ""
 
-                        For photo_index = 0 To photographs.Length - 1
-                            copy_source = photographs(photo_index)
-                            copy_difference = copy_source.Replace(folder_from_abs, "")
-                            If copy_difference(0) = "\" Then copy_difference = copy_difference.Remove(0, 1)
+                    For photo_index = 0 To photographs.Length - 1
+                        copy_source = photographs(photo_index)
+                        copy_difference = copy_source.Replace(folder_from_abs, "")
+                        If copy_difference(0) = "\" Then copy_difference = copy_difference.Remove(0, 1)
 
-                            If rename_string = "" Then
-                                copy_destination = Path.Combine(folder_to, copy_difference)
-                            Else
-                                copy_destination = folder_to & "\" & rename_string & " (" & GetNumberByType(file_types_1, Path.GetExtension(copy_source)) & ")" & Path.GetExtension(copy_source)
+                        If rename_string = "" Then
+                            copy_destination = Path.Combine(folder_to, copy_difference)
+                        Else
+                            copy_destination = folder_to & "\" & rename_string & " (" & GetNumberByType(file_types_1, Path.GetExtension(copy_source)) & ")" & Path.GetExtension(copy_source)
+                        End If
+
+                        Dim cartellaDest = Path.GetDirectoryName(copy_destination)
+
+                        If Not cartellaDestPred.Equals(cartellaDest) Then
+                            If Not Directory.Exists(cartellaDest) Then
+                                Directory.CreateDirectory(cartellaDest)
                             End If
+                        End If
 
-                            Dim cartellaDest = Path.GetDirectoryName(copy_destination)
+                        Dim thread As New Threading.Thread(Sub() FileCopyD(copy_source, copy_destination))
+                        thread.Start()
+                        thread.Join()
 
-                            If Not cartellaDestPred.Equals(cartellaDest) Then
-                                If Not Directory.Exists(cartellaDest) Then
-                                    Directory.CreateDirectory(cartellaDest)
-                                End If
-                            End If
+                        ProgressBar1.Value = photo_index + 1
+                    Next
 
-                            Dim thread As New Threading.Thread(Sub() FileCopyD(copy_source, copy_destination))
-                            thread.Start()
-                            thread.Join()
-
-                            ProgressBar1.Value = photo_index + 1
-                        Next
-
-                        ok = True
-                    End If
+                    ok = True
                 End If
             End If
         End If
