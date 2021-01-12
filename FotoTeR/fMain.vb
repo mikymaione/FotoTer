@@ -10,6 +10,10 @@ Public Class fMain
     Private MioDevice As DevicePath
     Private PercorsoDB As String = Directory.GetParent(Application.UserAppDataPath).FullName & "\..\FotoTeR\Opzioni.db"
 
+    Private ok = False
+    Private rename_string, folder_from_abs, folder_to, error_text As String
+    Private file_types_1 As TipoFile()
+    Private photographs As String()
 
     <Serializable()>
     Structure sOpzioni
@@ -80,24 +84,24 @@ Public Class fMain
         AbilitaInterfaccia = False
 
         Try
-            Vai()
+            AbilitaInterfaccia = Vai()
         Catch ex As Exception
             MsgBox("Errore: " & ex.Message, vbExclamation)
         End Try
-
-        AbilitaInterfaccia = True
     End Sub
 
     Private Sub bFrom_Click(ByVal sender As Object, ByVal e As EventArgs) Handles bFrom.Click
-        eFrom.Text = ScegliCartella()
+        eFrom.Text = ScegliCartella("Seleziona cartella da cui copiare")
     End Sub
 
     Private Sub bTo_Click(ByVal sender As Object, ByVal e As EventArgs) Handles bTo.Click
-        eTo.Text = ScegliCartella()
+        eTo.Text = ScegliCartella("Seleziona cartella in cui copiare")
     End Sub
 
-    Private Function ScegliCartella() As String
+    Private Function ScegliCartella(titolo As String) As String
         Using fb As New fBrowser()
+            fb.Text = titolo
+
             If fb.ShowDialog() = DialogResult.OK Then
                 Return fb.Path
             End If
@@ -106,14 +110,15 @@ Public Class fMain
         Return ""
     End Function
 
-    Private Sub Vai()
-        Dim ok = False
-        Dim error_text = "Riempire tutti i campi"
-        Dim folder_to = eTo.Text
-        Dim folder_from = eFrom.Text
-        Dim folder_from_abs = folder_from
-        Dim rename_string = If(cbRinomina.Checked, eRename.Text, "")
+    Private Function Vai()
+        ok = False
+        error_text = "Riempire tutti i campi"
 
+        folder_to = eTo.Text
+        Dim folder_from = eFrom.Text
+        folder_from_abs = folder_from
+
+        rename_string = If(cbRinomina.Checked, eRename.Text, "")
         rename_string = rename_string.Replace("\", "")
         rename_string = rename_string.Replace("/", "")
         rename_string = rename_string.Replace("?", "")
@@ -128,7 +133,12 @@ Public Class fMain
             If Not Directory.Exists(folder_to) Then Directory.CreateDirectory(folder_to)
 
             If Directory.Exists(folder_to) Then
-                Dim photographs = GetFilesFromPath(folder_from, folder_from_abs)
+                Dim threadP As New Threading.Thread(Sub()
+                                                        photographs = GetFilesFromPath(folder_from, folder_from_abs)
+                                                    End Sub)
+                threadP.Start()
+                threadP.Join()
+
                 Dim file_types_index = -1
                 Dim founded = False
                 Dim file_types_0(99) As TipoFile
@@ -153,61 +163,24 @@ Public Class fMain
                     End If
                 Next
 
-                Dim file_types_1(file_types_index) As TipoFile
+                file_types_1 = New TipoFile(file_types_index) {}
                 Array.Copy(file_types_0, file_types_1, file_types_index + 1)
 
                 If photographs.Length > 0 Then
-                    Dim copy_difference, copy_source, copy_destination As String
-
                     ProgressBar1.Visible = True
                     ProgressBar1.Maximum = photographs.Length
 
                     Array.Sort(photographs)
 
-                    Dim cartellaDestPred = ""
+                    BackgroundWorker1.RunWorkerAsync()
 
-                    For photo_index = 0 To photographs.Length - 1
-                        copy_source = photographs(photo_index)
-                        copy_difference = copy_source.Replace(folder_from_abs, "")
-                        If copy_difference(0) = "\" Then copy_difference = copy_difference.Remove(0, 1)
-
-                        If rename_string = "" Then
-                            copy_destination = Path.Combine(folder_to, copy_difference)
-                        Else
-                            copy_destination = folder_to & "\" & rename_string & " (" & GetNumberByType(file_types_1, Path.GetExtension(copy_source)) & ")" & Path.GetExtension(copy_source)
-                        End If
-
-                        Dim cartellaDest = Path.GetDirectoryName(copy_destination)
-
-                        If Not cartellaDestPred.Equals(cartellaDest) Then
-                            If Not Directory.Exists(cartellaDest) Then
-                                Directory.CreateDirectory(cartellaDest)
-                            End If
-                        End If
-
-                        Dim thread As New Threading.Thread(Sub() FileCopyD(copy_source, copy_destination))
-                        thread.Start()
-                        thread.Join()
-
-                        ProgressBar1.Value = photo_index + 1
-                    Next
-
-                    ok = True
+                    Return False
                 End If
             End If
         End If
 
-        If ok Then
-            MsgBox("Finito !", vbInformation)
-
-            Process.Start(folder_to)
-
-            Spegni()
-        Else
-            Enabled = True
-            MsgBox("Errore: " & error_text, vbExclamation)
-        End If
-    End Sub
+        Return True
+    End Function
 
     Private Sub PreSpegni()
         Opzioni = New sOpzioni(eFrom.Text, eTo.Text)
@@ -353,6 +326,54 @@ Public Class fMain
 
     Private Sub cbRinomina_CheckedChanged(sender As Object, e As EventArgs) Handles cbRinomina.CheckedChanged
         eRename.Enabled = cbRinomina.Checked
+    End Sub
+
+    Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
+        Dim cartellaDestPred = ""
+        Dim copy_difference, copy_source, copy_destination As String
+
+        For photo_index = 0 To photographs.Length - 1
+            copy_source = photographs(photo_index)
+            copy_difference = copy_source.Replace(folder_from_abs, "")
+            If copy_difference(0) = "\" Then copy_difference = copy_difference.Remove(0, 1)
+
+            If rename_string = "" Then
+                copy_destination = Path.Combine(folder_to, copy_difference)
+            Else
+                copy_destination = folder_to & "\" & rename_string & " (" & GetNumberByType(file_types_1, Path.GetExtension(copy_source)) & ")" & Path.GetExtension(copy_source)
+            End If
+
+            Dim cartellaDest = Path.GetDirectoryName(copy_destination)
+
+            If Not cartellaDestPred.Equals(cartellaDest) Then
+                If Not Directory.Exists(cartellaDest) Then
+                    Directory.CreateDirectory(cartellaDest)
+                End If
+            End If
+
+            FileCopyD(copy_source, copy_destination)
+
+            ProgressBar1.Value = photo_index + 1
+        Next
+    End Sub
+
+    Private Sub BackgroundWorker1_ProgressChanged(sender As Object, e As System.ComponentModel.ProgressChangedEventArgs) Handles BackgroundWorker1.ProgressChanged
+        ProgressBar1.Value = e.ProgressPercentage
+    End Sub
+
+    Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles BackgroundWorker1.RunWorkerCompleted
+        AbilitaInterfaccia = True
+
+        If ok Then
+            MsgBox("Finito !", vbInformation)
+
+            Process.Start(folder_to)
+
+            Spegni()
+        Else
+            Enabled = True
+            MsgBox("Errore: " & error_text, vbExclamation)
+        End If
     End Sub
 
 End Class

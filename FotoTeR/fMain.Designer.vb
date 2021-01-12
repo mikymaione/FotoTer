@@ -35,6 +35,7 @@ Partial Class fMain
         Me.bTo = New System.Windows.Forms.Button()
         Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
         Me.cbRinomina = New System.Windows.Forms.CheckBox()
+        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.SuspendLayout()
         '
         'Label1
@@ -147,6 +148,10 @@ Partial Class fMain
         Me.cbRinomina.Text = "Rinomina in:"
         Me.cbRinomina.UseVisualStyleBackColor = True
         '
+        'BackgroundWorker1
+        '
+        Me.BackgroundWorker1.WorkerReportsProgress = True
+        '
         'fMain
         '
         Me.AcceptButton = Me.bVai
@@ -185,4 +190,5 @@ Partial Class fMain
     Friend WithEvents bVai As System.Windows.Forms.Button
     Friend WithEvents ProgressBar1 As System.Windows.Forms.ProgressBar
     Friend WithEvents cbRinomina As CheckBox
+    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
 End Class
