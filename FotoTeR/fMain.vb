@@ -4,14 +4,14 @@
 'THE SOFTWARE Is PROVIDED "AS IS", WITHOUT WARRANTY Of ANY KIND, EXPRESS Or IMPLIED, INCLUDING BUT Not LIMITED To THE WARRANTIES Of MERCHANTABILITY, FITNESS For A PARTICULAR PURPOSE And NONINFRINGEMENT. In NO Event SHALL THE AUTHORS Or COPYRIGHT HOLDERS BE LIABLE For ANY CLAIM, DAMAGES Or OTHER LIABILITY, WHETHER In AN ACTION Of CONTRACT, TORT Or OTHERWISE, ARISING FROM, OUT Of Or In CONNECTION With THE SOFTWARE Or THE USE Or OTHER DEALINGS In THE SOFTWARE.
 Imports System.IO
 Imports MediaDevices
+Imports Microsoft.WindowsAPICodePack.Taskbar
 
 Public Class fMain
 
     Private MioDevice As DevicePath
     Private PercorsoDB As String = Directory.GetParent(Application.UserAppDataPath).FullName & "\..\FotoTeR\Opzioni.db"
 
-    Private ok = False
-    Private rename_string, folder_from_abs, folder_to, error_text As String
+    Private rename_string, folder_from_abs, folder_to As String
     Private file_types_1 As TipoFile()
     Private photographs As String()
 
@@ -48,7 +48,7 @@ Public Class fMain
             bTo.Enabled = value
             bVai.Enabled = value
             cbRinomina.Enabled = value
-            eRename.Enabled = value
+            eRename.Enabled = cbRinomina.Checked
 
             Application.DoEvents()
         End Set
@@ -111,9 +111,6 @@ Public Class fMain
     End Function
 
     Private Function Vai()
-        ok = False
-        error_text = "Riempire tutti i campi"
-
         folder_to = eTo.Text
         Dim folder_from = eFrom.Text
         folder_from_abs = folder_from
@@ -133,11 +130,7 @@ Public Class fMain
             If Not Directory.Exists(folder_to) Then Directory.CreateDirectory(folder_to)
 
             If Directory.Exists(folder_to) Then
-                Dim threadP As New Threading.Thread(Sub()
-                                                        photographs = GetFilesFromPath(folder_from, folder_from_abs)
-                                                    End Sub)
-                threadP.Start()
-                threadP.Join()
+                photographs = GetFilesFromPath(folder_from, folder_from_abs)
 
                 Dim file_types_index = -1
                 Dim founded = False
@@ -172,6 +165,7 @@ Public Class fMain
 
                     Array.Sort(photographs)
 
+                    TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.Normal)
                     BackgroundWorker1.RunWorkerAsync()
 
                     Return False
@@ -330,13 +324,13 @@ Public Class fMain
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
         Dim cartellaDestPred = ""
-        Dim copy_difference, copy_source, copy_destination As String
 
         For photo_index = 0 To photographs.Length - 1
-            copy_source = photographs(photo_index)
-            copy_difference = copy_source.Replace(folder_from_abs, "")
+            Dim copy_source = photographs(photo_index)
+            Dim copy_difference = copy_source.Replace(folder_from_abs, "")
             If copy_difference(0) = "\" Then copy_difference = copy_difference.Remove(0, 1)
 
+            Dim copy_destination As String
             If rename_string = "" Then
                 copy_destination = Path.Combine(folder_to, copy_difference)
             Else
@@ -359,21 +353,19 @@ Public Class fMain
 
     Private Sub BackgroundWorker1_ProgressChanged(sender As Object, e As System.ComponentModel.ProgressChangedEventArgs) Handles BackgroundWorker1.ProgressChanged
         ProgressBar1.Value = e.ProgressPercentage
+        TaskbarManager.Instance.SetProgressValue(ProgressBar1.Value, ProgressBar1.Maximum)
     End Sub
 
     Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles BackgroundWorker1.RunWorkerCompleted
         AbilitaInterfaccia = True
 
-        If ok Then
-            MsgBox("Finito !", vbInformation)
+        TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.NoProgress)
 
-            Process.Start(folder_to)
+        MsgBox("Finito!", vbInformation)
 
-            Spegni()
-        Else
-            Enabled = True
-            MsgBox("Errore: " & error_text, vbExclamation)
-        End If
+        Process.Start(folder_to)
+
+        Spegni()
     End Sub
 
 End Class
