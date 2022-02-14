@@ -21,32 +21,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_3870C15963CF97A8719DB312077AA654"
-        "OwnerKey" = "8:_B23EBD420B184AA6BAA75F749410923C"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_49E1FE8D18384A6DBCE498BE5171FE8D"
         "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_4B4A2E65C5C958BCEDDFB0849BE3DCB1"
-        "OwnerKey" = "8:_3870C15963CF97A8719DB312077AA654"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_4B4A2E65C5C958BCEDDFB0849BE3DCB1"
-        "OwnerKey" = "8:_B23EBD420B184AA6BAA75F749410923C"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_812843FCCB39898679DC1EABF7E83EE5"
-        "OwnerKey" = "8:_B23EBD420B184AA6BAA75F749410923C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -59,24 +35,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_B23EBD420B184AA6BAA75F749410923C"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_3870C15963CF97A8719DB312077AA654"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_4B4A2E65C5C958BCEDDFB0849BE3DCB1"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_812843FCCB39898679DC1EABF7E83EE5"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -199,32 +157,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3870C15963CF97A8719DB312077AA654"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Raccoom.TreeViewFolderBrowser.DataProviders, Version=3.0.0.33970, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                }
-            "SourcePath" = "8:Raccoom.TreeViewFolderBrowser.DataProviders.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_8A1CF2A625074D3EB3BA5D7A62FE4AD6"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_49E1FE8D18384A6DBCE498BE5171FE8D"
             {
             "SourcePath" = "8:..\\FotoTeR\\FotoTeR.ico"
@@ -243,58 +175,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4B4A2E65C5C958BCEDDFB0849BE3DCB1"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Raccoom.TreeViewFolderBrowser, Version=3.0.0.33967, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                }
-            "SourcePath" = "8:Raccoom.TreeViewFolderBrowser.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_8A1CF2A625074D3EB3BA5D7A62FE4AD6"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_812843FCCB39898679DC1EABF7E83EE5"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:MediaDevices, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                }
-            "SourcePath" = "8:MediaDevices.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_8A1CF2A625074D3EB3BA5D7A62FE4AD6"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
         }
@@ -375,15 +255,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:FotoTeR"
-        "ProductCode" = "8:{68D12C12-4AD5-4113-824F-018F238E9EE4}"
-        "PackageCode" = "8:{42D5A8F6-3A62-4F5A-8712-52FC55575A14}"
+        "ProductCode" = "8:{08C89833-90FB-4FE3-AD91-D4722E55730D}"
+        "PackageCode" = "8:{18715742-DC29-4221-A96D-E9636698C045}"
         "UpgradeCode" = "8:{F7DFFDF3-F3FE-4B27-8E5C-00F176AE78FE}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:20.21.0127"
+        "ProductVersion" = "8:20.22.0212"
         "Manufacturer" = "8:[MAIONE MIKY]"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -537,7 +417,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_099B1BDD2E434EE4B948A0DEDE0804F0"
                     {
                     "Sequence" = "3:100"
-                    "DisplayName" = "8:Stato"
+                    "DisplayName" = "8:Progress"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdAdminProgressDlg.wid"
@@ -588,7 +468,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_B9495F0F31C64233AE8296908E9FA820"
                     {
                     "Sequence" = "3:200"
-                    "DisplayName" = "8:Cartella di installazione"
+                    "DisplayName" = "8:Installation Folder"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdFolderDlg.wid"
@@ -633,7 +513,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_76A74A440F3647E6928D49A5B952563B"
                     {
                     "Sequence" = "3:200"
-                    "DisplayName" = "8:Cartella di installazione"
+                    "DisplayName" = "8:Installation Folder"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdAdminFolderDlg.wid"
@@ -665,7 +545,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_ED4719EDF27F4DC2BC102871638545CF"
                     {
                     "Sequence" = "3:100"
-                    "DisplayName" = "8:Stato"
+                    "DisplayName" = "8:Progress"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdProgressDlg.wid"
@@ -710,7 +590,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_8A6D889B9A2C49EFBCDFEA2E5790B5A6"
                     {
                     "Sequence" = "3:100"
-                    "DisplayName" = "8:Installazione completata"
+                    "DisplayName" = "8:Finished"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdAdminFinishedDlg.wid"
@@ -742,7 +622,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_7EDB5AC44DD0418685B270F83BC1EBB3"
                     {
                     "Sequence" = "3:100"
-                    "DisplayName" = "8:Installazione completata"
+                    "DisplayName" = "8:Finished"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdFinishedDlg.wid"

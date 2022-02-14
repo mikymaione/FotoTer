@@ -9,52 +9,52 @@ Imports Microsoft.WindowsAPICodePack.Taskbar
 Public Class fMain
 
     Private MioDevice As DevicePath
-    Private PercorsoDB As String = Directory.GetParent(Application.UserAppDataPath).FullName & "\..\FotoTeR\Opzioni.db"
+    Private ReadOnly PercorsoDB As String = Directory.GetParent(Application.UserAppDataPath).FullName & "\..\FotoTeR\Opzioni.db"
 
     Private rename_string, folder_from_abs, folder_to As String
     Private file_types_1 As TipoFile()
     Private photographs As String()
 
-    <Serializable()>
+    <Serializable>
     Structure sOpzioni
         Dim From_, To_ As String
 
-        Sub New(ByVal From__ As String, ByVal To__ As String)
+        Sub New(From__ As String, To__ As String)
             From_ = From__
             To_ = To__
         End Sub
     End Structure
 
-    Structure DevicePath
+    Private Structure DevicePath
         Dim device As MediaDevice
         Dim percorso As String
     End Structure
 
-    Structure TipoFile
+    Private Structure TipoFile
         Dim Tipo As String
         Dim Numero As Integer
 
-        Sub New(ByVal Tipo_ As String)
+        Sub New(Tipo_ As String)
             Tipo = Tipo_
             Numero = 0
         End Sub
     End Structure
 
-    Public WriteOnly Property AbilitaInterfaccia As Boolean
-        Set(ByVal value As Boolean)
-            Cursor.Current = IIf(value, Cursors.Default, Cursors.WaitCursor)
+    Private WriteOnly Property AbilitaInterfaccia As Boolean
+        Set
+            Cursor.Current = IIf(Value, Cursors.Default, Cursors.WaitCursor)
 
-            bFrom.Enabled = value
-            bTo.Enabled = value
-            bVai.Enabled = value
-            cbRinomina.Enabled = value
+            bFrom.Enabled = Value
+            bTo.Enabled = Value
+            bVai.Enabled = Value
+            cbRinomina.Enabled = Value
             eRename.Enabled = cbRinomina.Checked
 
             Application.DoEvents()
         End Set
     End Property
 
-    Public Property Opzioni As sOpzioni
+    Private Property Opzioni As sOpzioni
         Get
             If File.Exists(PercorsoDB) Then
                 Try
@@ -70,17 +70,17 @@ Public Class fMain
 
             Return New sOpzioni("", "")
         End Get
-        Set(ByVal value As sOpzioni)
+        Set
             Using fs As New FileStream(PercorsoDB, FileMode.OpenOrCreate)
                 Dim bf As New Runtime.Serialization.Formatters.Binary.BinaryFormatter
 
-                bf.Serialize(fs, value)
+                bf.Serialize(fs, Value)
             End Using
         End Set
     End Property
 
 
-    Private Sub bVai_Click(ByVal sender As Object, ByVal e As EventArgs) Handles bVai.Click
+    Private Sub bVai_Click(sender As Object, e As EventArgs) Handles bVai.Click
         AbilitaInterfaccia = False
 
         Try
@@ -90,11 +90,11 @@ Public Class fMain
         End Try
     End Sub
 
-    Private Sub bFrom_Click(ByVal sender As Object, ByVal e As EventArgs) Handles bFrom.Click
+    Private Sub bFrom_Click(sender As Object, e As EventArgs) Handles bFrom.Click
         eFrom.Text = ScegliCartella("Seleziona cartella da cui copiare")
     End Sub
 
-    Private Sub bTo_Click(ByVal sender As Object, ByVal e As EventArgs) Handles bTo.Click
+    Private Sub bTo_Click(sender As Object, e As EventArgs) Handles bTo.Click
         eTo.Text = ScegliCartella("Seleziona cartella in cui copiare")
     End Sub
 
@@ -133,13 +133,12 @@ Public Class fMain
                 photographs = GetFilesFromPath(folder_from, folder_from_abs)
 
                 Dim file_types_index = -1
-                Dim founded = False
                 Dim file_types_0(99) As TipoFile
 
                 For y = 0 To photographs.Length - 1
-                    founded = False
+                    Dim founded = False
 
-                    If Not file_types_0 Is Nothing Then
+                    If file_types_0 IsNot Nothing Then
                         If file_types_0.Length > 0 Then
                             For z = 0 To file_types_0.Length - 1
                                 If Path.GetExtension(photographs(y)) = file_types_0(z).Tipo Then
@@ -185,7 +184,7 @@ Public Class fMain
         Close()
     End Sub
 
-    Private Function GetNumberByType(ByRef Array_() As TipoFile, ByVal Type_ As String) As Integer
+    Private Function GetNumberByType(ByRef Array_() As TipoFile, Type_ As String) As Integer
         Dim i = 0
 
         If Not Array_ Is Nothing Then
@@ -204,11 +203,11 @@ Public Class fMain
         Return i
     End Function
 
-    Private Sub Form1_FormClosing(ByVal sender As Object, ByVal e As FormClosingEventArgs) Handles MyBase.FormClosing
+    Private Sub Form1_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         PreSpegni()
     End Sub
 
-    Public Function DateToStringWithUnderSpace(ByVal dd As Date) As String
+    Private Function DateToStringWithUnderSpace(dd As Date) As String
         Dim d = dd.Day
         Dim m = dd.Month
         Dim y = dd.Year
@@ -221,7 +220,7 @@ Public Class fMain
         Return s
     End Function
 
-    Private Sub Form1_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim o = Opzioni
 
         eRename.Text = DateToStringWithUnderSpace(Now) & "_"
@@ -301,22 +300,6 @@ Public Class fMain
             Return MioDevice
         End If
     End Function
-
-    Private Sub CopiaDaDevice(devPath As String)
-        Dim devices = MediaDevice.GetDevices()
-
-        For Each d In devices
-            If d.FriendlyName = devPath Then
-                Using d
-                    d.Connect()
-                    d.DownloadFolder("", eTo.Text, True)
-                    d.Disconnect()
-                End Using
-
-                Exit For
-            End If
-        Next
-    End Sub
 
     Private Sub cbRinomina_CheckedChanged(sender As Object, e As EventArgs) Handles cbRinomina.CheckedChanged
         eRename.Enabled = cbRinomina.Checked

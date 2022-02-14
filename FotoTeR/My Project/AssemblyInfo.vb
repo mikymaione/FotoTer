@@ -12,7 +12,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyDescription("Trasferimento e rinomina di foto")> 
 <Assembly: AssemblyCompany("[MAIONE MIKY]")> 
 <Assembly: AssemblyProduct("FotoTeR")>
-<Assembly: AssemblyCopyright("Copyright © [MAIONE MIKY] 2021")>
+<Assembly: AssemblyCopyright("Copyright © [MAIONE MIKY] 2022")>
 <Assembly: AssemblyTrademark("[MAIONE MIKY]")> 
 
 <Assembly: ComVisible(False)>
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("20.21.01.27")>
-<Assembly: AssemblyFileVersion("20.21.01.27")>
+<Assembly: AssemblyVersion("20.22.02.12")>
+<Assembly: AssemblyFileVersion("20.22.02.12")>
