@@ -14,6 +14,7 @@ Public Class fMain
     Private rename_string, folder_from_abs, folder_to As String
     Private file_types_1 As TipoFile()
     Private photographs As String()
+    Private setProgessBar = False
 
     <Serializable>
     Structure sOpzioni
@@ -81,13 +82,12 @@ Public Class fMain
 
 
     Private Sub bVai_Click(sender As Object, e As EventArgs) Handles bVai.Click
+        TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.Indeterminate)
+        ProgressBar1.Style = ProgressBarStyle.Marquee
+        ProgressBar1.Visible = True
         AbilitaInterfaccia = False
 
-        Try
-            AbilitaInterfaccia = Vai()
-        Catch ex As Exception
-            MsgBox("Errore: " & ex.Message, vbExclamation)
-        End Try
+        BackgroundWorker1.RunWorkerAsync()
     End Sub
 
     Private Sub bFrom_Click(sender As Object, e As EventArgs) Handles bFrom.Click
@@ -108,71 +108,6 @@ Public Class fMain
         End Using
 
         Return ""
-    End Function
-
-    Private Function Vai()
-        folder_to = eTo.Text
-        Dim folder_from = eFrom.Text
-        folder_from_abs = folder_from
-
-        rename_string = If(cbRinomina.Checked, eRename.Text, "")
-        rename_string = rename_string.Replace("\", "")
-        rename_string = rename_string.Replace("/", "")
-        rename_string = rename_string.Replace("?", "")
-        rename_string = rename_string.Replace(":", "")
-        rename_string = rename_string.Replace("*", "")
-        rename_string = rename_string.Replace("<", "")
-        rename_string = rename_string.Replace(">", "")
-        rename_string = rename_string.Replace("|", "")
-
-        If folder_to <> "" Then
-            folder_to = folder_to & "\" & rename_string
-            If Not Directory.Exists(folder_to) Then Directory.CreateDirectory(folder_to)
-
-            If Directory.Exists(folder_to) Then
-                photographs = GetFilesFromPath(folder_from, folder_from_abs)
-
-                Dim file_types_index = -1
-                Dim file_types_0(99) As TipoFile
-
-                For y = 0 To photographs.Length - 1
-                    Dim founded = False
-
-                    If file_types_0 IsNot Nothing Then
-                        If file_types_0.Length > 0 Then
-                            For z = 0 To file_types_0.Length - 1
-                                If Path.GetExtension(photographs(y)) = file_types_0(z).Tipo Then
-                                    founded = True
-                                    Exit For
-                                End If
-                            Next
-                        End If
-                    End If
-
-                    If founded = False Then
-                        file_types_index += 1
-                        file_types_0(file_types_index) = New TipoFile(Path.GetExtension(photographs(y)))
-                    End If
-                Next
-
-                file_types_1 = New TipoFile(file_types_index) {}
-                Array.Copy(file_types_0, file_types_1, file_types_index + 1)
-
-                If photographs.Length > 0 Then
-                    ProgressBar1.Visible = True
-                    ProgressBar1.Maximum = photographs.Length
-
-                    Array.Sort(photographs)
-
-                    TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.Normal)
-                    BackgroundWorker1.RunWorkerAsync()
-
-                    Return False
-                End If
-            End If
-        End If
-
-        Return True
     End Function
 
     Private Sub PreSpegni()
@@ -305,44 +240,118 @@ Public Class fMain
         eRename.Enabled = cbRinomina.Checked
     End Sub
 
-    Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
-        Dim cartellaDestPred = ""
+    Private Sub BackgroundWorker1_DoWork(sender As Object, e As ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
+        Try
+            Me.Text = "FotoTeR - Inizializzazione"
+            setProgessBar = False
+            folder_to = eTo.Text
+            Dim folder_from = eFrom.Text
+            folder_from_abs = folder_from
 
-        For photo_index = 0 To photographs.Length - 1
-            Dim copy_source = photographs(photo_index)
-            Dim copy_difference = copy_source.Replace(folder_from_abs, "")
-            If copy_difference(0) = "\" Then copy_difference = copy_difference.Remove(0, 1)
+            rename_string = If(cbRinomina.Checked, eRename.Text, "")
+            rename_string = rename_string.Replace("\", "")
+            rename_string = rename_string.Replace("/", "")
+            rename_string = rename_string.Replace("?", "")
+            rename_string = rename_string.Replace(":", "")
+            rename_string = rename_string.Replace("*", "")
+            rename_string = rename_string.Replace("<", "")
+            rename_string = rename_string.Replace(">", "")
+            rename_string = rename_string.Replace("|", "")
 
-            Dim copy_destination As String
-            If rename_string = "" Then
-                copy_destination = Path.Combine(folder_to, copy_difference)
-            Else
-                copy_destination = folder_to & "\" & rename_string & " (" & GetNumberByType(file_types_1, Path.GetExtension(copy_source)) & ")" & Path.GetExtension(copy_source)
-            End If
+            If folder_to <> "" Then
+                folder_to = folder_to & "\" & rename_string
+                If Not Directory.Exists(folder_to) Then Directory.CreateDirectory(folder_to)
 
-            Dim cartellaDest = Path.GetDirectoryName(copy_destination)
+                If Directory.Exists(folder_to) Then
+                    Me.Text = "FotoTeR - Lettura cartella sorgente"
+                    photographs = GetFilesFromPath(folder_from, folder_from_abs)
 
-            If Not cartellaDestPred.Equals(cartellaDest) Then
-                If Not Directory.Exists(cartellaDest) Then
-                    Directory.CreateDirectory(cartellaDest)
+                    Dim file_types_index = -1
+                    Dim file_types_0(99) As TipoFile
+
+                    For y = 0 To photographs.Length - 1
+                        Dim founded = False
+
+                        If file_types_0 IsNot Nothing Then
+                            If file_types_0.Length > 0 Then
+                                For z = 0 To file_types_0.Length - 1
+                                    If Path.GetExtension(photographs(y)) = file_types_0(z).Tipo Then
+                                        founded = True
+                                        Exit For
+                                    End If
+                                Next
+                            End If
+                        End If
+
+                        If founded = False Then
+                            file_types_index += 1
+                            file_types_0(file_types_index) = New TipoFile(Path.GetExtension(photographs(y)))
+                        End If
+                    Next
+
+                    file_types_1 = New TipoFile(file_types_index) {}
+                    Array.Copy(file_types_0, file_types_1, file_types_index + 1)
+
+                    If photographs.Length > 0 Then
+                        Array.Sort(photographs)
+
+                        Dim cartellaDestPred = ""
+
+                        For photo_index = 0 To photographs.Length - 1
+                            Dim copy_source = photographs(photo_index)
+                            Dim copy_difference = copy_source.Replace(folder_from_abs, "")
+                            If copy_difference(0) = "\" Then copy_difference = copy_difference.Remove(0, 1)
+
+                            Dim copy_destination As String
+                            If rename_string = "" Then
+                                copy_destination = Path.Combine(folder_to, copy_difference)
+                            Else
+                                copy_destination = folder_to & "\" & rename_string & " (" & GetNumberByType(file_types_1, Path.GetExtension(copy_source)) & ")" & Path.GetExtension(copy_source)
+                            End If
+
+                            Dim cartellaDest = Path.GetDirectoryName(copy_destination)
+
+                            If Not cartellaDestPred.Equals(cartellaDest) Then
+                                If Not Directory.Exists(cartellaDest) Then
+                                    Directory.CreateDirectory(cartellaDest)
+                                End If
+                            End If
+
+                            FileCopyD(copy_source, copy_destination)
+
+                            BackgroundWorker1.ReportProgress(photo_index + 1)
+                        Next
+                    End If
                 End If
             End If
+        Catch ex As Exception
+            AbilitaInterfaccia = True
+            Me.Text = "FotoTeR"
+            TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.Error)
+            ProgressBar1.Visible = False
 
-            FileCopyD(copy_source, copy_destination)
-
-            BackgroundWorker1.ReportProgress(photo_index + 1)
-        Next
+            MsgBox("Errore: " & ex.Message, vbExclamation)
+        End Try
     End Sub
 
-    Private Sub BackgroundWorker1_ProgressChanged(sender As Object, e As System.ComponentModel.ProgressChangedEventArgs) Handles BackgroundWorker1.ProgressChanged
+    Private Sub BackgroundWorker1_ProgressChanged(sender As Object, e As ComponentModel.ProgressChangedEventArgs) Handles BackgroundWorker1.ProgressChanged
+        If setProgessBar = False Then
+            setProgessBar = True
+            ProgressBar1.Style = ProgressBarStyle.Continuous
+            ProgressBar1.Maximum = photographs.Length
+            TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.Normal)
+        End If
+
         ProgressBar1.Value = e.ProgressPercentage
         TaskbarManager.Instance.SetProgressValue(ProgressBar1.Value, ProgressBar1.Maximum)
+        Me.Text = "FotoTeR - Copiati " & ProgressBar1.Value & "/" & ProgressBar1.Maximum & " files"
     End Sub
 
-    Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles BackgroundWorker1.RunWorkerCompleted
+    Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As ComponentModel.RunWorkerCompletedEventArgs) Handles BackgroundWorker1.RunWorkerCompleted
         AbilitaInterfaccia = True
-
+        Me.Text = "FotoTeR"
         TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.NoProgress)
+        ProgressBar1.Visible = False
 
         MsgBox("Finito!", vbInformation)
 
