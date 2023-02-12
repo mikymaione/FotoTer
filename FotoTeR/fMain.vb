@@ -242,6 +242,8 @@ Public Class fMain
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
         Try
+            Dim errors = New List(Of Exception)
+
             Me.Text = "FotoTeR - Inizializzazione"
             setProgessBar = False
             folder_to = eTo.Text
@@ -298,29 +300,37 @@ Public Class fMain
                         Dim cartellaDestPred = ""
 
                         For photo_index = 0 To photographs.Length - 1
-                            Dim copy_source = photographs(photo_index)
-                            Dim copy_difference = copy_source.Replace(folder_from_abs, "")
-                            If copy_difference(0) = "\" Then copy_difference = copy_difference.Remove(0, 1)
+                            Try
+                                Dim copy_source = photographs(photo_index)
+                                Dim copy_difference = copy_source.Replace(folder_from_abs, "")
+                                If copy_difference(0) = "\" Then copy_difference = copy_difference.Remove(0, 1)
 
-                            Dim copy_destination As String
-                            If rename_string = "" Then
-                                copy_destination = Path.Combine(folder_to, copy_difference)
-                            Else
-                                copy_destination = folder_to & "\" & rename_string & " (" & GetNumberByType(file_types_1, Path.GetExtension(copy_source)) & ")" & Path.GetExtension(copy_source)
-                            End If
-
-                            Dim cartellaDest = Path.GetDirectoryName(copy_destination)
-
-                            If Not cartellaDestPred.Equals(cartellaDest) Then
-                                If Not Directory.Exists(cartellaDest) Then
-                                    Directory.CreateDirectory(cartellaDest)
+                                Dim copy_destination As String
+                                If rename_string = "" Then
+                                    copy_destination = Path.Combine(folder_to, copy_difference)
+                                Else
+                                    copy_destination = folder_to & "\" & rename_string & " (" & GetNumberByType(file_types_1, Path.GetExtension(copy_source)) & ")" & Path.GetExtension(copy_source)
                                 End If
-                            End If
 
-                            FileCopyD(copy_source, copy_destination)
+                                Dim cartellaDest = Path.GetDirectoryName(copy_destination)
 
-                            BackgroundWorker1.ReportProgress(photo_index + 1)
+                                If Not cartellaDestPred.Equals(cartellaDest) Then
+                                    If Not Directory.Exists(cartellaDest) Then
+                                        Directory.CreateDirectory(cartellaDest)
+                                    End If
+                                End If
+
+                                FileCopyD(copy_source, copy_destination)
+
+                                BackgroundWorker1.ReportProgress(photo_index + 1)
+                            Catch exFor As Exception
+                                errors.Add(exFor)
+                            End Try
                         Next
+
+                        If errors.Count > 0 Then
+                            Throw New AggregateException("Errori durante la copia", errors)
+                        End If
                     End If
                 End If
             End If
@@ -353,9 +363,11 @@ Public Class fMain
         TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.NoProgress)
         ProgressBar1.Visible = False
 
-        MsgBox("Finito!", vbInformation)
+        Dim apri = MessageBox.Show("Operazione terminata. Vuoi aprire la cartella di destinazione", "FotoTer", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
-        Process.Start(folder_to)
+        If apri = DialogResult.Yes Then
+            Process.Start(folder_to)
+        End If
 
         Spegni()
     End Sub
